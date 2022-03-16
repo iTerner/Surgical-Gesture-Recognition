@@ -1,0 +1,38 @@
+# wandb and general settings
+project: data_eng_project_new
+dataset: APAS
+task: gestures
+
+# development settings
+debugging: 0                    # 0, 1
+upload: 1                       # 0, 1
+use_gpu_num: '0'
+
+# training and model settings
+encoder_type: 2       # 1 - transformer, 2 - lstm
+decoder_type: 2              # 2 - lstm, 3 - linear
+split: all                      # '0', '1', '2', '3', '4', all
+include_video: 1                # 0 - top, 1 - side, 2 - both
+num_classes: 6
+lr: 0.0014775900407580378
+num_epochs: 60
+batch_size: 4
+eval_rate: 1
+dropout: 0.4
+normalization: 0                # 0 - none, 1 - standard
+optimizer: 1                    # 1 - Adam, 2 - SGD
+offline_mode: 1                 # LSTM only: 0 - regular, 1 - bidirectional
+
+# encoders parameters
+kin_encoder_input_dim: 36
+vid_encoder_input_dim: 512
+kin_encoder_hidden_dim: 123
+vid_encoder_hidden_dim: 215
+kin_encoder_num_layers: 4
+vid_encoder_num_layers: 1
+
+# decoder parameters
+decoder_hidden_dim: 153
+decoder_num_layers: 1
+
+
