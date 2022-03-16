@@ -1,64 +1,71 @@
-# Behind the Scenes Of Sarcasm Detection Model
+# Surgical Gesture Recognition Using Multi-Encoder Based Architecture
 
 ## Table of contents
 
 - [General info](#general-info)
 - [Background](#Background)
 - [Repository Description](#repository-description)
-- [Pipeline](#Pipeline)
 - [Architecture](#Architecture)
 - [Requirement](#Requirement)
-- [References](#References)
+- [Notes](#Notes)
 
 ## General info
 
-In this project, we are willing to check whether a certain part of speech is affecting sarcasm in a given sentence.
+In this project, we propose to use a multi encoder-single decoder architecture based on LSTM to solve the gesture recognition task, using combined kinematic and video input data.
 
 ## Background
 
-Sarcasm is a means of communication that involves a hidden insult. Often, understanding sarcasm requires a high level of comprehension. We present a method for approximating the impact of specific part-of-speech on the decision-making process on sarcasm detection models. Our method is based on INLP\cite{INLP}, a method for removing information from neural representations. We create a map of words and their part-of-speech by tagging the part-of-speech of words in a sentence using a pre-trained model\cite{posmodel}. We repeat training linear classifiers that predict the part of speech from GLOVE embedding and project the embedding on the classifier's null space.
+Gesture recognition is a type of perceptual computing user interface that allows computers to capture and interpret human gestures as commands. The general definition of gesture recognition is the ability of a computer to understand gestures and execute commands based on those gestures.
+Automatically recognizing surgical gestures is a crucial step towards a thorough understanding of the surgical skill. Possible areas of application include automatic skill assessment, intra-operative monitoring of critical surgical steps, and semi-automation of surgical tasks.
+
+Solutions that rely only on raw video and do not require additional sensor hardware are especially attractive as they can be implemented at a low cost in many scenarios. However, surgical gesture recognition based only on video is a challenging problem that requires effective means to extract both visual and temporal information from the video.
 
 ## Repository Description
 
-| Filename                            | description                                                                                       |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `main.py`                           | The main file in Python format. To run the model and the Preprocessing you need to run this file. |
-| `final_notebook.ipynb`              | Python notebook containing the training and evaluation, without the Preprocessing.                |
-| `Preprocessing.py`                  | Python file consists of the prepossessing functions.                                              |
-| `dataset.py`                        | Python file consists of the implementation of the dataset object.                                 |
-| `models.py `                        | Python file consists of the implementation of the model.                                          |
-| `utils.py `                         | Python file consists helper functions.                                                            |
-| `helper_function.py`                | Python file consists of the helper functions for the prepossessing only.                          |
-| `figures `                          | Folder consists of all the images from the project.                                               |
-| `Sarcasm_Headlines_Dataset_v2.json` | The Sarcasm News Headlines Dataset.                                                               |
-| `data`                              | Folder consists of all the data used in the projects.                                             |
-| `Sarcasm_INLP.pdf`                  | The report.                                                                                       |
-| `requirement.txt`                   | File containing all the packages we used in this project.                                         |
-
-## Pipeline
-
-<p align="center">
-  <img src=".\figures\SarcasmINLP_method_diagram.png" width="350" alt="accessibility text">
-</p>
+| Filename                         | description                                                          |
+| -------------------------------- | -------------------------------------------------------------------- |
+| `analysis.py`                    | Python file consists of the analysis.                                |
+| `batch_gen.py`                   | Python file consists of the code to transform the data into batches. |
+| `metrics.py`                     | Python file consists of the metrics compution used in the project.   |
+| `preprocess.py`                  | Python file consists of the preprocessing phase.                     |
+| `model.py `                      | Python file consists of the implementation of the model.             |
+| `train_experiment.py `           | The main file.                                                       |
+| `Trainer.py`                     | Python file consists of the Trainer.                                 |
+| `visualization.py`               | Python file consists of the visualization tools.                     |
+| `figures `                       | Folder consists of all the images from the project.                  |
+| `models`                         | Folder consists of all the models and optimizers for each split.     |
+| `Gesture Recognition report.pdf` | The report.                                                          |
+| `config.yaml`                    | The configuration file.                                              |
+| `requirement.txt`                | File containing all the packages we used in this project.            |
 
 ## Architecture
 
-In this project, we wanted to leverage the sequence dependency that appears in sentences, so, we used a bi-directional LSTM encoder followed by an MLP decoder, which gave us the sarcasm prediction.
+In this project, we wanted to leverage the sequence dependency that appears in videos, in addition to the multi types of data we had (raw frames and kinematics data).
 
 <p align="center">
-  <img src=".\figures\architecture.png" width="350" alt="accessibility text">
+  <img src=".\figures\surgical_data_science_model.png" width="350" alt="accessibility text">
 </p>
 
 ## Requirement
 
-To run this project, you need to install several packages. For convenience, we created a `requirement.txt` file consists of all the packages used in this projcet.
+To set up the environment and install the dependencies, run the following commands:
 
-In order to install all the packages in the `requirement.txt` file, simply use to command `pip install -r requirements.txt`.
+- conda create --name venv
+- conda activate venv
+- conda install pip
+- pip install -r requirements.txt
 
-To run the project, you need to open `main.py` and run `python main.py --pos NN`.
+To prepare the data, go to directory containing the code, and run:
 
-For other values you can pass different values through the arguments (such as num_epochs, learning_rate, batch_size, etc).
+- `python preprocess.py`
 
-## References
+To run the experiment, from the directory containing the code, run:
 
-- [Dataset](https://www.kaggle.com/rmisra/news-headlines-dataset-for-sarcasm-detection)
+- `python train_experiment.py -c config.yaml`
+
+If a change of parameters is required, change inside config.yaml.
+
+## Notes
+
+- The APAS dataset was given by the TA.
+- Most of the code was adapted from the course TA.
