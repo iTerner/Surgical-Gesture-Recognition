@@ -50,10 +50,10 @@ In this project, we wanted to leverage the sequence dependency that appears in v
 
 To set up the environment and install the dependencies, run the following commands:
 
-- conda create --name venv
-- conda activate venv
-- conda install pip
-- pip install -r requirements.txt
+- `conda create --name venv`
+- `conda activate venv`
+- `conda install pip`
+- `pip install -r requirements.txt`
 
 To prepare the data, go to directory containing the code, and run:
 
